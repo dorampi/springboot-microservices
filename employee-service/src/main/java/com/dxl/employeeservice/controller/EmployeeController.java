@@ -1,5 +1,6 @@
 package com.dxl.employeeservice.controller;
 
+import com.dxl.employeeservice.dto.APIResponseDto;
 import com.dxl.employeeservice.dto.EmployeeDto;
 import com.dxl.employeeservice.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -23,8 +24,8 @@ public class EmployeeController {
 
     // Build Get Employee REST API
     @GetMapping("{id}")
-    public ResponseEntity<EmployeeDto> createEmployee(@PathVariable("id") Long employeeId) {
-        EmployeeDto foundEmployee = employeeService.getEmployeeById(employeeId);
+    public ResponseEntity<APIResponseDto> createEmployee(@PathVariable("id") Long employeeId) {
+        APIResponseDto foundEmployee = employeeService.getEmployeeById(employeeId);
         return new ResponseEntity<>(foundEmployee, HttpStatus.CREATED);
     }
 }
