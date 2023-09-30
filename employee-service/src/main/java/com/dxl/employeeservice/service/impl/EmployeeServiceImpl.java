@@ -6,13 +6,10 @@ import com.dxl.employeeservice.dto.EmployeeDto;
 import com.dxl.employeeservice.entity.Employee;
 import com.dxl.employeeservice.exception.ResourceNotFoundException;
 import com.dxl.employeeservice.repository.EmployeeRepository;
-import com.dxl.employeeservice.service.APIclient;
+import com.dxl.employeeservice.service.APIClient;
 import com.dxl.employeeservice.service.EmployeeService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import static com.dxl.employeeservice.mapper.AutoEmployeeMapper.AUTO_EMPLOYEE_MAPPER;
 
@@ -26,7 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 //    private WebClient webClient;
 
-    private APIclient apIclient;
+    private APIClient apIclient;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
