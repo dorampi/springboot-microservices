@@ -3,6 +3,7 @@ package com.dxl.employeeservice.service.impl;
 import com.dxl.employeeservice.dto.APIResponseDto;
 import com.dxl.employeeservice.dto.DepartmentDto;
 import com.dxl.employeeservice.dto.EmployeeDto;
+import com.dxl.employeeservice.dto.OrganizationDto;
 import com.dxl.employeeservice.entity.Employee;
 import com.dxl.employeeservice.exception.ResourceNotFoundException;
 import com.dxl.employeeservice.repository.EmployeeRepository;
@@ -65,12 +66,17 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .bodyToMono(DepartmentDto.class)
                 .block();
 
+        OrganizationDto organizationDto = webClient.get()
+                .uri("http://localhost:8083/api/organizations/" + employee.getOrganizationCode())
+                .retrieve()
+                .bodyToMono(OrganizationDto.class)
+                .block();
 //        DepartmentDto departmentDto = apIclient.getDepartmentByDepartmentCode(employee.getDepartmentCode());
 
         EmployeeDto employeeDto = AUTO_EMPLOYEE_MAPPER.mapToEmployeeDto(employee);
 
 
-        return new APIResponseDto(employeeDto, departmentDto);
+        return new APIResponseDto(employeeDto, departmentDto, organizationDto);
     }
 
 
@@ -84,8 +90,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         departmentDto.setDepartmentCode("DXL000");
         departmentDto.setDepartmentDescription("DxL Default Department");
 
+        OrganizationDto organizationDto = new OrganizationDto();
+        organizationDto.setOrganizationName("DxL Organization");
+        organizationDto.setOrganizationCode("DXL_ORG");
+        organizationDto.setOrganizationDescription("DxL Default Organization");
         EmployeeDto employeeDto = AUTO_EMPLOYEE_MAPPER.mapToEmployeeDto(employee);
 
-        return new APIResponseDto(employeeDto, departmentDto);
+        return new APIResponseDto(employeeDto, departmentDto, organizationDto);
     }
 }
