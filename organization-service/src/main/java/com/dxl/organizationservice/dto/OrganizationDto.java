@@ -33,5 +33,4 @@ public class OrganizationDto {
             description = "Created Date"
     )
     private LocalDateTime createdDate;
-
 }
